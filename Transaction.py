@@ -1,9 +1,11 @@
 import secrets
 
 class Transaction:
-    def __init__(self, value, signature):
+    def __init__(self, sender, reciever, value, timestamp):
+        self.sender = sender
+        self.reciever = reciever
         self.value = value
-        self.signature = signature
+        self.timestamp = timestamp
         
 
 
@@ -49,6 +51,40 @@ def Prime_Generation():
             continue
         if(Miller_Rabin(candidate,50)):
             return candidate
+def gcd(a,b):
+    if (a ==0):
+        return b
+    return gcd(b % a, a)
+def lcm(a,b):
+    return (abs(a*b)/gcd(a,b))
+
+def extended_gcd(a,b):
+    if (b == 0):
+        return a, 1, 0
+    gcd,x1,y1 = extended_gcd(b, a % b)
+
+    x = y1
+    y = x1 - (a // b) * y1
+
+    return gcd, x, y
+
+
+
+def KeyPair_Generation():
+    e = 65537
+    while True:
+        p = Prime_Generation()
+        q = Prime_Generation()
+        n = p*q
+        lambda_n = lcm(p-1,q-1) #secret
+        gcd,x,y = extended_gcd(e,lambda_n)
+        if (e > 1 and e < lambda_n and gcd(e,lambda_n) == 1):
+            break
+    d = x % lambda_n
+    return d, e, n # (e,n) public, (d,n) private
+
+
+
 
 
 global small_primes
