@@ -1,17 +1,33 @@
 import secrets
 
 class Transaction:
-    def __init__(self, sender, reciever, value, timestamp):
-        self.sender = sender
-        self.reciever = reciever
-        self.value = value
+    def __init__(self, inputs, outputs, timestamp):
+        self.inputs = inputs
+        self.outputs = outputs
         self.timestamp = timestamp
         
+class TransactionInput:
+    def __init__(self, transactionAddress, outputIndex):
+        self.transactionAddress = transactionAddress
+        self.outputIndex = outputIndex
 
+class TransactuionOutput:
+    def __init__(self, index, value, recipeint):
+        self.index = index
+        self.value = value
+        self.recipeint = recipient
+        
 
-def CreateTransaction(user, amount, signature):
-    name = user
+def CreateTransaction(value, recipient):
+    # count all outputs that add up to our value
+    # stores those as inputs
+    # send amount to recipeient, creating outputs
+    # send the rest back to yourself
+    # timestamp it
+    # store it in the mempool of a node. 
     return None
+
+#add nodes, store blockchain, mempool, validation, etc...
 
 def divisible_small_primes(candidate): #checks if our candiate is divisible by the first 1000 primes
     for p in small_primes:
